@@ -10,7 +10,7 @@ Photo Gallery Android Application.
 - Kotlin as main development language
 - Coroutines for threading
 - MVVM as architecture component
-- View Binding
+- Used View Binding and Data binding
 - Room for data persistence
 - Retrofit for making Network calls
 - Jetpack Navigation for fragment transactions
