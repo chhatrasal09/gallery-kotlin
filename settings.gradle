@@ -1,0 +1,2 @@
+rootProject.name = "Zee5 Test"
+include ':app'
