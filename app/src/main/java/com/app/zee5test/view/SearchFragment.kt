@@ -133,7 +133,7 @@ class SearchFragment : Fragment() {
     private fun search(query: String) {
         mSearchJob?.cancel()
         mSearchJob = lifecycleScope.launch(Dispatchers.IO) {
-            mSearchAdapter.setQuery(query)
+            mSearchAdapter.resetList()
             mSearchAdapter.submitData(PagingData.empty())
             mViewModel.searchQuery(query).collectLatest {
                 lifecycleScope.launch { mSearchAdapter.submitData(it) }

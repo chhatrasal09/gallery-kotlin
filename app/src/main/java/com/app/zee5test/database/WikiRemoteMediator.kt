@@ -9,6 +9,10 @@ import com.app.zee5test.repository.ApiClient
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
+/**
+ * This class is responsible to get data from remote and update it in the database and also perform
+ * action of getting data while paginating.
+ */
 @OptIn(ExperimentalPagingApi::class)
 class WikiRemoteMediator(
     private val query: String,

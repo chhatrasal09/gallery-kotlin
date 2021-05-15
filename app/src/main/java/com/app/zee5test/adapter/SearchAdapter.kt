@@ -16,12 +16,16 @@ import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.signature.ObjectKey
 
+/**
+ * This class is responsible for populating data to recyclerview. The [PagingDataAdapter] is
+ * used so that the adapter know when to paginated the data based on the logic provide in
+ * [com.app.zee5test.database.WikiRemoteMediator].
+ *
+ */
 class SearchAdapter :
     PagingDataAdapter<SearchItem, SearchAdapter.ContentViewHolder>(SEARCH_ITEM_COMPARATOR) {
 
-
     var onItemSelected: ((Int, String, ImageView) -> Unit)? = null
-    private var mQuery: String = ""
 
     /**
      * Called when RecyclerView needs a new [ViewHolder] of the given type to represent
@@ -80,15 +84,18 @@ class SearchAdapter :
         holder.onBind(position)
     }
 
+    /**
+     * This function is overrided to clean the data from image view to handle OOM issue while recycling view.
+     */
     override fun onViewRecycled(holder: ContentViewHolder) {
         super.onViewRecycled(holder)
         Glide.with(holder.itemView.context).clear(holder.viewDataBinding.itemImageView)
     }
 
-    suspend fun setQuery(query: String) {
-        if (mQuery == query)
-            return
-        mQuery = query
+    /**
+     * This function is used to clear the data before loading data for new query.
+     */
+    suspend fun resetList() {
         submitData(PagingData.empty())
     }
 
