@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.zee5test.databinding.SearchImageItemBinding
 import com.app.zee5test.model.SearchItem
 import com.app.zee5test.utils.dp
+import com.app.zee5test.utils.setOnSingleClickListener
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -105,7 +106,7 @@ class SearchAdapter :
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .signature(ObjectKey(data.pageId))
                 .into(viewDataBinding.itemImageView)
-            itemView.setOnClickListener {
+            itemView.setOnSingleClickListener {
                 onItemSelected?.invoke(position, data.url, viewDataBinding.itemImageView)
             }
         }

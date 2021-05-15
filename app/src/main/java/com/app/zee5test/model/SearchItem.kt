@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 @Entity
 data class SearchItem(
     @PrimaryKey @ColumnInfo(name = "page_id") val pageId: String,
-    @ColumnInfo(name = "query_string")val queryString: String,
+    @ColumnInfo(name = "query_string") val queryString: String,
     val url: String
 )

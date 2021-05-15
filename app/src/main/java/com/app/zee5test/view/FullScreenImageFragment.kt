@@ -2,11 +2,10 @@ package com.app.zee5test.view
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.ViewCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
@@ -14,6 +13,7 @@ import com.app.zee5test.R
 import com.app.zee5test.databinding.FragmentFullScreenImageBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
@@ -49,6 +49,7 @@ class FullScreenImageFragment : Fragment() {
             postponeEnterTransition()
             Glide.with(context)
                 .load(args.url)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .dontAnimate()
                 .listener(object : RequestListener<Drawable> {
                     /**

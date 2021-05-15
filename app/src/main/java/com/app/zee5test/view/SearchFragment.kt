@@ -23,6 +23,7 @@ import com.app.zee5test.utils.dp
 import com.app.zee5test.viewmodel.SearchFragmentViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
@@ -134,10 +135,9 @@ class SearchFragment : Fragment() {
         mSearchJob = lifecycleScope.launch(Dispatchers.IO) {
             mSearchAdapter.setQuery(query)
             mSearchAdapter.submitData(PagingData.empty())
-            mViewModel.searchQuery(query).observe(viewLifecycleOwner, {
-                val list = it ?: return@observe
-                lifecycleScope.launch { mSearchAdapter.submitData(list) }
-            })
+            mViewModel.searchQuery(query).collectLatest {
+                lifecycleScope.launch { mSearchAdapter.submitData(it) }
+            }
         }
     }
 
