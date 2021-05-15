@@ -9,12 +9,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.app.zee5test.databinding.SearchImageItemBinding
 import com.app.zee5test.model.SearchItem
-import com.app.zee5test.utils.dp
 import com.app.zee5test.utils.setOnSingleClickListener
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DecodeFormat
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.signature.ObjectKey
 
 /**
  * This class is responsible for populating data to recyclerview. The [PagingDataAdapter] is
@@ -104,15 +100,7 @@ class SearchAdapter :
         fun onBind(position: Int) {
             val data = getItem(position) ?: return
             viewDataBinding.itemImageView.transitionName = data.url
-            Glide.with(itemView.context)
-                .load(data.url)
-                .format(DecodeFormat.PREFER_RGB_565)
-                .override(200.dp, 200.dp)
-                .centerCrop()
-                .thumbnail(0.25f)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .signature(ObjectKey(data.pageId))
-                .into(viewDataBinding.itemImageView)
+            viewDataBinding.item = data
             itemView.setOnSingleClickListener {
                 onItemSelected?.invoke(position, data.url, viewDataBinding.itemImageView)
             }
